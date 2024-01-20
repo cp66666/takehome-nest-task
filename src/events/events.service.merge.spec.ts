@@ -60,7 +60,6 @@ describe('EventsService - mergeAll', () => {
     expect(eventRepository.manager.transaction).toHaveBeenCalled();
     expect(eventRepository.find).toHaveBeenCalledWith({ relations: ['invitees'] });
 
-    // You should also check that the save and remove methods were called with the right parameters
     expect(eventRepository.manager.transaction).toHaveBeenCalledWith(
         expect.any(Function),
     );
