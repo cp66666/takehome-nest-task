@@ -122,7 +122,7 @@ Example:
 
 Explain:
 The server merges all overlapping events below to a user. For those event, will invite all members in each event. Overlapping example: E1: 2pm-3pm, E2: 2:45pm-4pm => E_merged: 2pm-4pm. The original events that has been merged will be deleted at the end.
-
+I find all events that have overlapping time and users, record events' id. Then finish the merge.
 ----------
 
 ## Start application
