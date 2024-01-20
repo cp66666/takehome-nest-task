@@ -9,11 +9,11 @@
 
 Clone the repository
 
-    git clone https://github.com/lujakob/nestjs-realworld-example-app.git
+    git clone https://github.com/cp66666/takehome-nest-task.git
 
 Switch to the repo folder
 
-    cd nestjs-realworld-example-app
+    cd takehome-nest-task
 
 Install dependencies
 
@@ -141,7 +141,7 @@ The server merges all overlapping events below to a user. For those event, will 
 ----------
 
 ## Demo video
-
+The demo videos are attached and sent by email.
 
 ----------
 

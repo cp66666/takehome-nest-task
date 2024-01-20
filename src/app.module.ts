@@ -12,7 +12,7 @@ import { EventsModule } from './events/events.module';
       host: 'localhost',
       username: 'root',
       password: 'Aa27939689',
-      database: 'my_nestjs_project_test',
+      database: 'my_nestjs_project',
       entities: ['dist/**/*.entity.{ts,js}'],
       synchronize: true,
     }),
