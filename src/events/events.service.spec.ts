@@ -39,7 +39,7 @@ const mockUserRepository = {
   }),
 
   findBy: jest.fn().mockReturnValue({
-    id:1,
+    id: 1,
     name: 'user1',
   }),
   // Mock the `find` method if you're retrieving multiple users
@@ -56,6 +56,7 @@ const mockUserRepository = {
 describe('EventsService', () => {
   let service: EventsService;
   let eventRepository: jest.Mocked<Repository<Event>>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let userRepository: jest.Mocked<Repository<User>>;
 
   beforeEach(async () => {
@@ -164,7 +165,10 @@ describe('EventsService', () => {
     await service.delete(eventId);
 
     // Assertions
-    expect(mockManager.remove).toHaveBeenCalledWith(Event, { id: 1, invitees: [] });
+    expect(mockManager.remove).toHaveBeenCalledWith(Event, {
+      id: 1,
+      invitees: [],
+    });
   });
 
   it('should throw NotFoundException if event does not exist', async () => {
@@ -185,57 +189,59 @@ describe('EventsService', () => {
     expect(mockManager.remove).not.toHaveBeenCalled();
   });
 
-//   it('should merge events correctly', async () => {
-//     // Mock data
-//     const createEventDto1: CreateEventDto = {
-//       title: 'event1',
-//       description: 'This is event1',
-//       status: EventStatus.IN_PROGRESS,
-//       startTime: '2024-01-14T14:00:00.000Z',
-//       endTime: '2024-01-14T16:00:00.000Z',
-//       invitees: [1],
-//     };
-//
-//     const createEventDto2: CreateEventDto = {
-//       title: 'event2',
-//       description: 'This is event2',
-//       status: EventStatus.TODO,
-//       startTime: '2024-01-14T13:00:00.000Z',
-//       endTime: '2024-01-14T15:00:00.000Z',
-//       invitees: [1, 2],
-//     };
-//
-//     const createEventDto_merged: CreateEventDto = {
-//       title: 'event1 / event2',
-//       description: 'This is event1 / This is event2',
-//       status: EventStatus.IN_PROGRESS,
-//       startTime: '2024-01-14T13:00:00.000Z',
-//       endTime: '2024-01-14T16:00:00.000Z',
-//       invitees: [1, 2],
-//     }; //
-//
-//
-//     // Mock
-//     // eventRepository.create.mockReturnValue(event1);
-//     // eventRepository.save.mockResolvedValue(event1);
-//     const event1 = await service.create(Object.assign(new Event(), createEventDto1, { id: 1 }));
-//
-//     // eventRepository.create.mockReturnValue(event2);
-//     // eventRepository.save.mockResolvedValue(event2);
-//     const event2 = await service.create(Object.assign(new Event(), createEventDto2, { id: 2 }));
-//
-//     // Act
-//     const mergedEvent = new Event();
-//     Object.assign(mergedEvent, createEventDto_merged, { id: 3 });
-//     // eventRepository.create.mockReturnValue(mergedEvent);
-//     // eventRepository.save.mockResolvedValue(mergedEvent);
-//     eventRepository.find.mockResolvedValue([event1, event2]);
-//     mockManager.findOne.mockReturnValue(event1);
-//     eventRepository.findOne.mockResolvedValue(event1);
-//     let test3 = await service.mergeAll();
-//     const result = await service.findOne(3);
-//
-//     // Assert
-//     expect(result).toEqual(mergedEvent);
-//   });
+  /*
+     it('should merge events correctly', async () => {
+       // Mock data
+       const createEventDto1: CreateEventDto = {
+         title: 'event1',
+         description: 'This is event1',
+         status: EventStatus.IN_PROGRESS,
+         startTime: '2024-01-14T14:00:00.000Z',
+         endTime: '2024-01-14T16:00:00.000Z',
+         invitees: [1],
+       };
+
+       const createEventDto2: CreateEventDto = {
+         title: 'event2',
+         description: 'This is event2',
+         status: EventStatus.TODO,
+         startTime: '2024-01-14T13:00:00.000Z',
+         endTime: '2024-01-14T15:00:00.000Z',
+         invitees: [1, 2],
+       };
+
+       const createEventDto_merged: CreateEventDto = {
+         title: 'event1 / event2',
+         description: 'This is event1 / This is event2',
+         status: EventStatus.IN_PROGRESS,
+         startTime: '2024-01-14T13:00:00.000Z',
+         endTime: '2024-01-14T16:00:00.000Z',
+         invitees: [1, 2],
+       }; //
+
+
+       // Mock
+       // eventRepository.create.mockReturnValue(event1);
+       // eventRepository.save.mockResolvedValue(event1);
+       const event1 = await service.create(Object.assign(new Event(), createEventDto1, { id: 1 }));
+
+       // eventRepository.create.mockReturnValue(event2);
+       // eventRepository.save.mockResolvedValue(event2);
+       const event2 = await service.create(Object.assign(new Event(), createEventDto2, { id: 2 }));
+
+       // Act
+       const mergedEvent = new Event();
+       Object.assign(mergedEvent, createEventDto_merged, { id: 3 });
+       // eventRepository.create.mockReturnValue(mergedEvent);
+       // eventRepository.save.mockResolvedValue(mergedEvent);
+       eventRepository.find.mockResolvedValue([event1, event2]);
+       mockManager.findOne.mockReturnValue(event1);
+         eventRepository.findOne.mockResolvedValue(event1);
+       let test3 = await service.mergeAll();
+       const result = await service.findOne(3);
+
+       // Assert
+       expect(result).toEqual(mergedEvent);
+     });
+  */
 });

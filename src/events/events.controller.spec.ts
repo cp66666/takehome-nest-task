@@ -17,7 +17,6 @@ describe('EventsController', () => {
           ...dto,
         };
       }),
-      // other methods as necessary
     };
 
     const module: TestingModule = await Test.createTestingModule({
