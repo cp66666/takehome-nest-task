@@ -1,73 +1,151 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+> ### NestJS Feature Enhancement Assignment
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+----------
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Getting started
 
 ## Installation
 
-```bash
-$ npm install
-```
+Clone the repository
 
-## Running the app
+    git clone https://github.com/lujakob/nestjs-realworld-example-app.git
 
-```bash
-# development
-$ npm run start
+Switch to the repo folder
 
-# watch mode
-$ npm run start:dev
+    cd nestjs-realworld-example-app
 
-# production mode
-$ npm run start:prod
-```
+Install dependencies
 
-## Test
+    npm install
+    
+----------
 
-```bash
-# unit tests
-$ npm run test
+## Database
+##### TypeORM
 
-# e2e tests
-$ npm run test:e2e
+Create a new mysql database with the name `nestjsrealworld`\
+(or the name you specified in the ormconfig.json)
 
-# test coverage
-$ npm run test:cov
-```
+Set mysql database settings in ormconfig.json
 
-## Support
+    {
+      "type": "mysql",
+      "host": "localhost",
+      "username": "your-mysql-username",
+      "password": "your-mysql-password",
+      "database": "my_nestjs_project",
+      "entities": ["dist/**/*.entity.{ts,js}"],
+      "synchronize": true
+    }
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Start local mysql server and create new database 'my_nestjs_project'
 
-## Stay in touch
+On application start, tables for all entities will be created.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+----------
+## NPM scripts
 
-## License
+- `npm start` - Start application
+- `npm run start:watch` - Start application in watch mode
+- `npm run test` - run Jest test runner
+- `npm run start:prod` - Build application
 
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+----------
+
+## REST API
+The REST APIs are described below.
+
+----------
+
+##### Create a new user
+
+POST /users
+Example:
+
+    curl -X POST http://localhost:3000/users  -H "Content-Type: application/json"  -d '{"name": "user1"}' 
+
+Explain:
+The server creates a new user with an auto-generated 'id', 'name' is "user1". The events of the user is an empty array.
+
+----------
+
+##### Create a new event
+
+POST /events
+Example:
+
+    curl -X POST http://localhost:3000/events -H "Content-Type: application/json"  -d '{                                 
+           "title": "event1",                      
+           "description": "This is event1",        
+           "status": "TODO",                      
+           "startTime": "2024-01-14T13:00:00.000Z", 
+           "endTime": "2024-01-14T15:00:00.000Z",                                                                                         
+           "invitees": [1, 2]                                                                                                                                    
+         }'
+Explain:
+A new event is created when parameters are valid. "title", "status", "startTime" and "endTime" are required; "description" and "invitees" are optional. "status" is enum (['TODO', 'IN_PROGRESS', 'COMPLETED']. "startTime" and "endTime" must be valid date format.
+    
+----------
+
+##### Retrieve an event by its id
+
+GET /events/:id
+Example:
+
+    curl -X GET http://localhost:3000/events/1
+Explain:
+The server will responce the event with id 1, if it can be found in database. For example:
+
+    {"id":1,"title":"event1","description":"This is event1","status":"TODO","createdAt":"2024-01-17T05:23:11.134Z","updatedAt":"2024-01-17T05:23:11.134Z","startTime":"2024-01-14T13:00:00.000Z","endTime":"2024-01-14T15:00:00.000Z","invitees":[{"id":1,"name":"user1"},{"id":2,"name":"user2"}]}
+    
+----------
+
+##### Delete an event by its id
+
+DELETE /events/:id
+Example:
+
+    curl -X DELETE http://localhost:3000/events/1
+
+Explain:
+The server will delete the event with id 1, if it can be found in database.
+
+----------
+
+##### MergeAll
+
+POST /events/merge
+Example:
+
+    curl -X POST http://localhost:3000/events/merge 
+
+Explain:
+The server merges all overlapping events below to a user. For those event, will invite all members in each event. Overlapping example: E1: 2pm-3pm, E2: 2:45pm-4pm => E_merged: 2pm-4pm. The original events that has been merged will be deleted at the end.
+
+----------
+
+## Start application
+
+- `npm run start`
+- Test api with curl.
+
+
+----------
+
+## Run unit tests
+
+- `npm run test` or `npm run test:watch`
+- check the result
+-
+----------
+
+## Demo video
+
+
+----------
+
+## To Reviewer
+
+Thank you for considering me for this project. However, as I am still expanding my expertise in the language and framework used, as well as managing my college coursework, there remain several aspects of the project that could be further developed, such as adding comprehensive unit and integration tests. I am committed to continuous learning and improvement, and I am confident that with time and experience, I can overcome these challenges. I am very grateful for the opportunity to contribute to this project and hope to have the good fortune of being selected for the position. Thanks again for understanding!
+
